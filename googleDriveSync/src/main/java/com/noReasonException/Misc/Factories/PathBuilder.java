@@ -8,9 +8,9 @@ import java.util.*;
 
 
 /***
- * public class PathBuilder...
+ * A utillity class , to manage differencies between Local and GoogleDrive Disc Locations...
  * @author noReasonException(Stefanos Stefanou)
- *              Utilities for converting local paths to cloud paths and vice versa...
+ *
  * @version 0.0.1
  * Known Bugs...
  * +-------------------------------------------------------------------------------------------------------------------------------------+
@@ -20,8 +20,13 @@ import java.util.*;
  * +-------------------------------------------------------------------------------------------------------------------------------------+
  * */
 public class PathBuilder {
-
-
+    /***
+     *  Gets a fileID and constructs a path
+     * @param   mainServiceObject   the {@link ServiceFactory ServiceFactoryObject} to communicate with google drive REST Api.
+     * @param   fileID              the fileID of the file .
+     * @return                      the constructed Full path
+     * @throws IOException          in case of any connection error...
+     */
     public static java.lang.String buildPathFromGoogleDriveFile(ServiceFactory mainServiceObject, java.lang.String fileID) throws IOException {//TODO FIX 00
 
         java.lang.StringBuilder retval = new java.lang.StringBuilder();                                                         //utillity to build the path...
@@ -55,6 +60,15 @@ public class PathBuilder {
 
         return retval.toString();
     }
+
+    /***
+     *
+     * @param serviceFactory the {@link ServiceFactory ServiceFactoryObject} to communicate with google drive REST Api.
+     * @param file           the google file class
+     * @return                      the constructed Full path
+     * @throws IOException          in case of any connection error...
+     */
+
     public static java.lang.String buildPathFromGoogleDriveFile(ServiceFactory serviceFactory,File file) throws IOException{
         return buildPathFromGoogleDriveFile(serviceFactory,file.getId());
     }

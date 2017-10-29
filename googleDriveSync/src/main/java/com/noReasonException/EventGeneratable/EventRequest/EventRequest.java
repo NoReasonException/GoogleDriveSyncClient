@@ -1,8 +1,8 @@
 package com.noReasonException.EventGeneratable.EventRequest;
 
-import com.noReasonException.DirectoryController.DirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryController;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType;
-import java.net.URI;
+
 import java.util.Date;
 
 /***
@@ -17,6 +17,7 @@ import java.util.Date;
  */
 public class EventRequest implements Comparable<EventRequest>{
 
+
     public int compareTo(EventRequest eventRequest) {
         if(this.dateCreated.getTime()==eventRequest.dateCreated.getTime())return 0;
         return this.dateCreated.getTime()>eventRequest.dateCreated.getTime()?1:-1;
@@ -24,16 +25,29 @@ public class EventRequest implements Comparable<EventRequest>{
 
     private java.lang.String filePath;
     private java.util.Date   dateCreated=null;
-    private com.noReasonException.DirectoryController.DirectoryController eventSource;
+    private com.noReasonException.DirectoryManager.DirectoryController.DirectoryController eventSource;
     private com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType typeOfEvent=null;
+
+    /***
+     * Get file path , witch event occured
+     * @return A fully constructed path
+     */
     public java.lang.String getFilePath() {
         return this.filePath;
     }
 
-    public com.noReasonException.DirectoryController.DirectoryController getEventSource() {
+    /***
+     *
+     * @return {@link DirectoryController The DirectoryController } witch the event occured...
+     */
+    public com.noReasonException.DirectoryManager.DirectoryController.DirectoryController getEventSource() {
         return eventSource;
     }
 
+    /***
+     *
+     * @return {@link ModifiedType The type of Event } (example Creation of file , Deletion of file , e.t.c)
+     */
     public ModifiedType getTypeOfEvent() {
         return typeOfEvent;
     }
@@ -41,7 +55,7 @@ public class EventRequest implements Comparable<EventRequest>{
     /***
      *
      * @param filePath      The path of file the request happened...
-     * @param eventSource   The DirectoryController who manages the directory that file exists in...
+     * @param eventSource   The {@link DirectoryController The DirectoryController } who manages the directory that file exists in...
      */
     public EventRequest(java.lang.String filePath,ModifiedType type,DirectoryController eventSource) {
         this.filePath = filePath;
@@ -49,6 +63,11 @@ public class EventRequest implements Comparable<EventRequest>{
         this.eventSource = eventSource;
         this.dateCreated=new Date();
     }
+
+    /***
+     *
+     * @return A formatted {@link java.lang.String String} , for debugging purposes
+     */
     @Override
     public java.lang.String toString(){
         return "[EVENT OBJECT][Time : '"+this.dateCreated+"'][Name :'"+this.getFilePath()+"'][Type :' \t"+this.getTypeOfEvent()+"']";

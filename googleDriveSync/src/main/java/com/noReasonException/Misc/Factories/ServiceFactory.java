@@ -5,23 +5,17 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
-import com.noReasonException.DirectoryController.DirectoryControllers.GoogleDriveDirectoryController;
-import com.noReasonException.DirectoryController.DirectoryControllers.LocalDirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryControllers.GoogleDriveDirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryControllers.LocalDirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryManager;
 import com.noReasonException.EventGeneratable.EventGenerators.GoogleDriveEventGenerator;
-import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.InotifyWrapper;
-import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapperEventGenerator;
 import com.noReasonException.EventGeneratable.EventGenerators.RequestSubmitter.RequestSubmitter;
-import com.noReasonException.EventGeneratable.EventRequest.EventRequest;
-import com.noReasonException.EventGeneratable.EventRequest.GoogleEventRequest;
 import com.noReasonException.RequestQueueController.RequestQueue.RequestQueue;
-import com.sun.org.apache.regexp.internal.RE;
+import com.noReasonException.RequestQueueController.RequestQueueController;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -93,8 +87,22 @@ public class ServiceFactory  {
     }
     public static void main(String args[]) throws IOException,InterruptedException {
         ServiceFactory f = new ServiceFactory();
-        List<?> e = new LinkedList<Integer>();
-        Runnable
+        RequestQueue mainEventQueue = new RequestQueue();
+        RequestQueueController mainController = new RequestQueueController(mainEventQueue);
+
+        LocalDirectoryController directoryController = new LocalDirectoryController();
+        DirectoryManager.getInstance().add(directoryController);
+        RequestSubmitter localSubmitter = new RequestSubmitter(new InotifyWrapperEventGenerator("./Test",directoryController),mainEventQueue);
+
+
+        GoogleDriveDirectoryController GdirectoryController = new GoogleDriveDirectoryController();
+        DirectoryManager.getInstance().add(GdirectoryController);
+        RequestSubmitter cloudSubmitter = new RequestSubmitter(new GoogleDriveEventGenerator(f,GdirectoryController),mainEventQueue);
+        System.out.println("Starting Threads...");
+        new Thread (localSubmitter).start();
+        new Thread (cloudSubmitter).start();
+        System.out.println("START...");
+        mainController.mainloop();
 
     }
 }

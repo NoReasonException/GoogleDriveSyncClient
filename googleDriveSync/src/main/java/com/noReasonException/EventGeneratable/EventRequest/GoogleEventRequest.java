@@ -1,6 +1,6 @@
 package com.noReasonException.EventGeneratable.EventRequest;
 
-import com.noReasonException.DirectoryController.DirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryController;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType;
 
 public class GoogleEventRequest extends EventRequest {
@@ -10,6 +10,10 @@ public class GoogleEventRequest extends EventRequest {
         this.id=id;
     }
 
+    /***
+     *
+     * @return the googleDrive File ID .
+     */
     public String getId() {
         return id;
     }

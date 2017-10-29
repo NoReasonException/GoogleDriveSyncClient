@@ -27,28 +27,36 @@ public class RequestQueue extends PriorityQueue<EventRequest> {
     @Override
     public EventRequest poll(){
         synchronized (this){
-            //System.out.println(Thread.currentThread().getName()+" Gets from queue");
             return super.poll();
         }
     }
     @Override
     public boolean offer(EventRequest eventRequest) {
         synchronized (this){
-            //System.out.println(Thread.currentThread().getName()+" put in queue the .. { "+eventRequest+"}");
+            System.out.println(Thread.currentThread().getName()+" put in queue the .. { "+eventRequest+"}");
             return super.offer(eventRequest);
         }
     }
     @Override
     public EventRequest remove() {
-        throw new UnsupportedOperationException();
+        synchronized (this){
+            //System.out.println(Thread.currentThread().getName()+" put in queue the .. { "+eventRequest+"}");
+            return super.remove();
+        }
     }
     @Override
     public EventRequest element() {
-        throw new UnsupportedOperationException();
+        synchronized (this){
+            //System.out.println(Thread.currentThread().getName()+" put in queue the .. { "+eventRequest+"}");
+            return super.element();
+        }
     }
     @Override
     public EventRequest peek() {
-        throw new UnsupportedOperationException();
+        synchronized (this) {
+            //System.out.println(Thread.currentThread().getName()+" put in queue the .. { "+eventRequest+"}");
+            return super.peek();
+        }
     }
 
 }

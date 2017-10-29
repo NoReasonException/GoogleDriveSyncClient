@@ -4,8 +4,8 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.Change;
 import com.google.api.services.drive.model.ChangeList;
 import com.google.api.services.drive.model.File;
-import com.noReasonException.DirectoryController.DirectoryController;
-import com.noReasonException.DirectoryController.DirectoryControllers.GoogleDriveDirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryControllers.GoogleDriveDirectoryController;
 import com.noReasonException.EventGeneratable.EventGenerator;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType;
 import com.noReasonException.EventGeneratable.EventRequest.EventRequest;
@@ -23,7 +23,7 @@ import java.util.List;
  * Known Bugs...
  * +---------------------------------------------------------------------------------------------------------------------+
  * +    ID  Description                                                     Version             Status          Notes    |
- * +    00  waitForFileEvent submits wrong ModifiedType(Debug Purposes)     0.0.1               PENDING           -      |
+ * +    00  waitForFileEvent submits wrong ModifiedType(Debug Purposes)     0.0.1               SOLVED           -       |
  * +    01  Unwritten IOException handler in constructor                    0.0.1               PENDING           -      |
  * +    02  Uses explicity additional File Get in getModifiedType..         0.0.1               PENDING           -      |
  * +---------------------------------------------------------------------------------------------------------------------+
@@ -108,7 +108,7 @@ public class GoogleDriveEventGenerator implements EventGenerator {
      *
      * @return The Generators directory Controller...
      */
-    public com.noReasonException.DirectoryController.DirectoryController getDirectoryController(){
+    public com.noReasonException.DirectoryManager.DirectoryController.DirectoryController getDirectoryController(){
         return this.directoryController;
     }
 

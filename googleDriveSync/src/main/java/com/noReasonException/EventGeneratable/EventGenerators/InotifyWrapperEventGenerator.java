@@ -1,6 +1,6 @@
 package com.noReasonException.EventGeneratable.EventGenerators;
 
-import com.noReasonException.DirectoryController.DirectoryController;
+import com.noReasonException.DirectoryManager.DirectoryController.DirectoryController;
 import com.noReasonException.EventGeneratable.EventGenerator;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.InotifyWrapper;
 import com.noReasonException.EventGeneratable.EventGenerators.InotifyWrapper.ModifiedType;
@@ -21,7 +21,7 @@ import java.io.IOException;
  * +---------------------------------------------------------------------------------------------------------------------+
  * */
 public class InotifyWrapperEventGenerator extends InotifyWrapper implements EventGenerator {
-    com.noReasonException.DirectoryController.DirectoryController                        DirectoryController=null;
+    com.noReasonException.DirectoryManager.DirectoryController.DirectoryController                        DirectoryController=null;
 
     /***
      *
@@ -45,7 +45,7 @@ public class InotifyWrapperEventGenerator extends InotifyWrapper implements Even
      *
      * @return The path directory controller...
      */
-    public com.noReasonException.DirectoryController.DirectoryController getDirectoryController(){
+    public com.noReasonException.DirectoryManager.DirectoryController.DirectoryController getDirectoryController(){
         return this.DirectoryController;
     }
 
