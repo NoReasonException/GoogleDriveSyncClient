@@ -5,8 +5,8 @@ Based on maven . <br>
 
 Version 0.0.1 (Under Develepoment yet , unstable...) 
 
-This project is completely open-source and free , documentation can be found on doc/ folder (JavaDoc) 
-Classes have been build In this way (.xml file combatible with www.draw.io exist in res/class_hie
+This project is completely open-source and free , documentation can be found on doc/ folder (JavaDoc) <br>
+Classes hierarchy is presented below (.xml file combatible with www.draw.io exist in res/class_hie for your modifications)
 
 ![alt text](https://raw.githubusercontent.com/NoReasonException/GoogleDriveSyncClient/master/googleDriveSync/res/class_hie/hie.png)
 
